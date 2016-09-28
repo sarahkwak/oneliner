@@ -1,0 +1,9 @@
+<%= form_for Oneline.new do |f|%>
+		Todays one line 
+		<p><%= f.text_field :contents %><p>
+		<% t = Time.now %>
+		<%= f.hidden_field :user, value: current_user %>
+		<p><%= t.strftime('%B %d, %Y') %></p>
+		<p><%= f.submit 'Submit' %><p>
+	<% end %>
+</div>
