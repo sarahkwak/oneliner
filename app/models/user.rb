@@ -9,8 +9,14 @@ class User < ActiveRecord::Base
 	belongs_to :secret_admirer, class_name: "User"
 
 	def oneline_checker
-		oneline.select{ |o| o.created_at.to_date == Date.today }.any?	
+		onelines.todays_oneline.any?	
 	end
 
-	
+	def oneline_to_admirer
+		onelines.todays_oneline.select{ |o| !o.admirer_id.nil? }.any?
+	end
+
+	def received_form_admirer
+		Oneline.todays_oneline.select{ |o| !o.secret_admirer_id.nil? }.any?
+	end
 end

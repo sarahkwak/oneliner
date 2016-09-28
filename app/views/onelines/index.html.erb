@@ -1,4 +1,7 @@
 <h1><%= current_user.first_name %></h1>
+<% if !current_user %>
+	<%= render 'devise/shared/links' %>
+<% end %>
 <div class="pretty-box">
 	<%= form_for Oneline.new do |f|%>
 		Todays one line 
