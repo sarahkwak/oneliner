@@ -5,7 +5,10 @@ class OnelinesController < ApplicationController
 	end
 
 	def create
-		Oneline.create(contents: params[:oneline][:contents], user: current_user)
+		oneline = Oneline.create(contents: params[:oneline][:contents], user: current_user)
+		if params[:oneline][:admirer_id]
+			oneline.update(admirer_id: params[:oneline][:admirer_id])
+		end
 		redirect_to :back
 	end
 

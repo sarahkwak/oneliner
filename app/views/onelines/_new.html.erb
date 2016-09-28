@@ -3,6 +3,7 @@
 		<p><%= f.text_field :contents %><p>
 		<% t = Time.now %>
 		<%= f.hidden_field :user, value: current_user %>
+		<%= f.hidden_field :admirer_id, value: current_user.admirer[0].id %>
 		<p><%= t.strftime('%B %d, %Y') %></p>
 		<p><%= f.submit 'Submit' %><p>
 	<% end %>

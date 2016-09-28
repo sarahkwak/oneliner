@@ -12,4 +12,5 @@ class Oneline < ActiveRecord::Base
 	def contains_questions
 		contents.include? "?"
 	end 
+
 end
