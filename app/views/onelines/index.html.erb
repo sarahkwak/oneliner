@@ -32,6 +32,7 @@
 
 <% Oneline.my_oneline(current_user).reverse.each do |oneline| %>
 	<p>Created at <%= oneline.created_at.strftime('%B %d, %Y') %></p>
+	<p><%= oneline.contains_question? %></p>
 	<p><%= oneline.contents %> <%= link_to "Edit", oneline_path(oneline.id), remote: true, class: "edit#{oneline.id}" %>
 		<%= link_to 'Delete', oneline_path(oneline.id), method: :delete, remote: true, class: "delete_#{oneline.id }" %> 
 	</p>
