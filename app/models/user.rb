@@ -9,14 +9,23 @@ class User < ActiveRecord::Base
 	belongs_to :secret_admirer, class_name: "User"
 
 	def oneline_checker
-		onelines.todays_oneline.any?	
+		Oneline.todays_oneline.select { |o| o.user_id == id }.any?
 	end
 
 	def oneline_to_admirer
-		onelines.todays_oneline.select{ |o| !o.admirer_id.nil? }.any?
+		Oneline.todays_oneline.select{ |o| o.user_id == id && o.secret_admirer_id == secret_admirer.id }.any?
 	end
 
 	def received_form_admirer
-		Oneline.todays_oneline.select{ |o| !o.secret_admirer_id.nil? }.any?
+		Oneline.todays_oneline.select{ |o| o.admirer_id == id }.any?
 	end
+
+	def self.has_multiple_admirers
+		User.select { |u| u.admirer.count > 1 }
+	end
+
+	def who_admires_this_person
+		User.select { |u| u.secret_admirer_id == id }
+	end
+
 end
