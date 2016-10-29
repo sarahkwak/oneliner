@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  
+
   devise :omniauthable, :omniauth_providers => [:facebook]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -15,7 +13,7 @@ class User < ActiveRecord::Base
 	end
 
 	def oneline_to_admirer
-		Oneline.todays_oneline.select{ |o| o.user_id == id && o.secret_admirer_id == secret_admirer.id }.any?
+		Oneline.todays_oneline.select{ |o| o.user_id == id && o.secret_admirer_id == secret_admirer.id }
 	end
 
 	def received_form_admirer
