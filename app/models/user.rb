@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 	end
 
 	def received_form_admirer
-		Oneline.todays_oneline.select{ |o| o.admirer_id == id }.any?
+		Oneline.todays_oneline.select{ |o| o.admirer_id == id }
 	end
 
 	def self.has_multiple_admirers

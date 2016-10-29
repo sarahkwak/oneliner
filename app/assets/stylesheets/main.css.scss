@@ -53,11 +53,25 @@ body p, h1 {
 	font-size: 1.5em;
 	margin-left: 1%;
 }
+.admirer {
+	background-color: #e5e5ff;
+	.admirer_oneline {
+		padding-top:3%;
+	}
+	p {
+		font-size: 2.5em;
+		text-align: center;
+		margin: 0;
+		padding-bottom: 10px;
+	}
+}
 .secret_admirer {
 	background-color: #e5f2ff;
 	height: 200px;
 	p {
+		padding-top:3%;
 		font-size: 2.5em;
-		
+		text-align: center;
+
 	}
 }

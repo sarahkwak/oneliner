@@ -25,11 +25,11 @@
 </div>
 
 <div class="admirer">
-	<p>This is a oneline messages that you've received from people secretly love you</p>
-	<% if !current_user.received_from_admirer.any? %>
+	<p class='admirer_oneline'>This is a oneline messages that you've received from people secretly love you</p>
+	<% if !current_user.received_form_admirer.any? %>
 		<p>It looks like there is no messages from him/her</p>
 	<% else %>
-		<% current_user.received_from_admirer.each do |amg| %>
+		<% current_user.received_form_admirer.each do |amg| %>
 			<p><%= amg.contents %></p>
 		<% end %>
 	<% end %>
@@ -37,13 +37,6 @@
 
 <div class="secret_admirer">
 	<p>This is a oneline message you can send to someone you love</p>
-	<%%>
+	<% form_for Oneline.new do |f| %>
 </div>
 
-<% Oneline.my_oneline(current_user).reverse.each do |oneline| %>
-	<p>Created at <%= oneline.created_at.strftime('%B %d, %Y') %></p><p>
-		<%= oneline.contents %> <%= link_to "Edit", oneline_path(oneline.id), remote: true, class: "edit#{oneline.id}" %>
-		<%= link_to 'Delete', oneline_path(oneline.id), method: :delete, remote: true, class: "delete_#{oneline.id }" %> 
-	</p>
-	<br>
-<% end %>
