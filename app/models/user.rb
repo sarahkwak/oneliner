@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 		Oneline.todays_oneline.select{ |o| o.user_id == id && o.secret_admirer_id == secret_admirer.id }
 	end
 
-	def received_form_admirer
+	def received_from_admirer
 		Oneline.todays_oneline.select{ |o| o.admirer_id == id }
 	end
 
