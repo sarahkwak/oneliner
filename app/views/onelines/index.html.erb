@@ -1,16 +1,17 @@
-<% if !current_user %>
-	<%= render 'devise/shared/links' %>
-<% else %>
-	<h1><%= current_user.first_name %></h1>
-	 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> 
-<% end %>
+<div class="nav_bar">
+	<% if !current_user %>
+		<%= render 'devise/shared/links' %>
+	<% else %>
+		<p><%= current_user.first_name || current_user.email %>&nbsp;&nbsp;
+		 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> </p>
+	<% end %>
+</div>
+
 <div class="pretty-box">
 	<%= form_for Oneline.new do |f|%>
-		Todays one line 
-		<p><%= f.text_field :contents %><p>
-		<% t = Time.now %>
+		<h1 class = 'title'><%= Time.now.strftime('%B %d, %Y') %> one line </h1>
+		<p><%= f.text_field :contents, class: "form-control", rows:"3" %></p>
 		<% f.hidden_field :user, value: current_user %>
-		<p><%= t.strftime('%B %d, %Y') %></p>
 		<p><%= f.submit 'Submit' %><p>
 	<% end %>
 </div>
