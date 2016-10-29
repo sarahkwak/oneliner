@@ -8,12 +8,14 @@
 </div>
 
 <div class="pretty-box">
+	<div class="container">
 	<%= form_for Oneline.new do |f|%>
 		<h1 class = 'title'><%= Time.now.strftime('%B %d, %Y') %> one line </h1>
-		<p><%= f.text_field :contents, class: "form-control", rows:"3" %></p>
+		<p><%= f.text_field :contents, class: "form-control", rows:"3", placeholder: "What is in your mind today?" %></p>
 		<% f.hidden_field :user, value: current_user %>
 		<p><%= f.submit 'Submit' %><p>
 	<% end %>
+	</div>
 </div>
 
 <div class="yesterday-box">
