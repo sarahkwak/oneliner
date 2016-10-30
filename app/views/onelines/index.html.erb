@@ -39,12 +39,16 @@
 	<div class="container">
 		<% if current_user.secret_admirer.nil? %>
 			<p>You can be a Secret Admirer for someone and send one line to him/her everyday. Of course we will not tell who you are because it is secret. If you don't have anyone, register now!</p>
-			<%= form_for User.new do |u| %>
-				<%= u.text_field :first_name, placeholder: "First Name" %>
-				<%= u.email_field :email, placeholder: "Email" %>
-				<%= u.hidden_field :admirer, value: current_user %>
-				<%= u.submit 'Sbumit', class: 'btn btn-success' %>
-			<% end %>
+			<p class='font-2'>
+				<%= form_for User.new, url: users_admirer_path, method: :post do |u| %>
+				<p>
+					<%= u.text_field :first_name, placeholder: "First Name" %>
+					<%= u.email_field :email, placeholder: "Email" %>
+					<%= u.hidden_field :admirer, value: current_user %>
+					<%= u.submit 'Sbumit', class: 'btn btn-success' %>
+				</p>
+				<% end %>
+			</p>
 		<% else %>
 			<p class='padding_top_p '>What do you want to say to "<%= current_user.secret_admirer.first_name %>" today? </p>
 			<%= form_for Oneline.new do |f| %>
