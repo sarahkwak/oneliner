@@ -1,4 +1,4 @@
-<%= form_for this_oneline do |f| %>
-	<%= f.text_field :contents %>
-	<%= f.submit 'submit' %>
+<%= form_for(this_oneline, remote: true) do |f| %>
+	<%= f.text_field :contents, class: 'long-text' %>
+	<%= f.submit 'submit', class: "btn btn-success" %>
 <% end %>

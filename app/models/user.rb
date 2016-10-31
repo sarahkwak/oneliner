@@ -12,12 +12,16 @@ class User < ActiveRecord::Base
 		Oneline.todays_oneline.select { |o| o.user_id == id }.any?
 	end
 
-	def oneline_to_admirer
+	def oneline_to_admirer_today
 		Oneline.todays_oneline.select{ |o| o.user_id == id && o.secret_admirer_id == secret_admirer.id }
 	end
 
 	def received_from_admirer
 		Oneline.todays_oneline.select{ |o| o.admirer_id == id }
+	end
+
+	def todays_my_oneline
+		onelines.todays_oneline
 	end
 
 	def self.has_multiple_admirers

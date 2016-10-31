@@ -27,7 +27,7 @@
 <div class="admirer">
 	<p class='admirer_oneline'>This is a oneline messages that you've received today from people secretly admire you</p>
 	<% if !current_user.received_from_admirer.any? %>
-		<p>It looks like there is no messages from him/her today</p>
+		<p>It looks like there is no messages from him/her today&nbsp;<i class="material-icons">mood_bad</i></p>
 	<% else %>
 		<% current_user.received_from_admirer.each do |amg| %>
 			<p class='font-purple'><i class="fa fa-quote-left" aria-hidden="true"></i>&nbsp;<%= amg.contents %><i class="fa fa-quote-right" aria-hidden="true"></i>&nbsp;</p>
@@ -50,11 +50,16 @@
 				<% end %>
 			</p>
 		<% else %>
-			<p class='padding_top_p '>What do you want to say to "<%= current_user.secret_admirer.first_name %>" today? </p>
-			<%= form_for Oneline.new do |f| %>
-				<p><%= f.text_field :contents, class: "form-control bigger-font", rows:"3", placeholder: "Perhaps something cheerful?" %></p>
-				<%= f.hidden_field :user, value: current_user %>
-				<p class="center"><%= f.submit 'Save', class: "btn btn-success"%><p>
+			<% if current_user.oneline_to_admirer_today.any? %>
+				<p class='top-8'><i class="material-icons">loyalty</i> &nbsp;You've already sent message to <span class='admirer-name'><%= current_user.secret_admirer.first_name %></span> today. Come back tomorrow!</p>
+			<% else %>
+				<p class='padding_top_p '>What do you want to say to <span class='admirer-name'><%= current_user.secret_admirer.first_name %></span> today? </p>
+				<%= form_for Oneline.new do |f| %>
+					<p><%= f.text_field :contents, class: "form-control bigger-font", rows:"3", placeholder: "Perhaps something cheerful?" %></p>
+					<%= f.hidden_field :user, value: current_user %>
+					<%= f.hidden_field :secret_admirer_id, value: current_user.secret_admirer.id %>
+					<p class="center"><%= f.submit 'Save', class: "btn btn-success"%><p>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>
@@ -62,13 +67,16 @@
 
 <div class="daily_oneline">
 	<div class="container">
-		<h1>Here is your Daily Journal</h1>
-		<% Oneline.my_oneline(current_user).reverse.each do |oneline| %>
-			<p>Created at <%= oneline.created_at.strftime('%B %d, %Y') %></p>
-			<p><%= oneline.contents %> <%= link_to "Edit", oneline_path(oneline.id), remote: true, class: "edit#{oneline.id}" %> |
-			<%= link_to 'Delete', oneline_path(oneline.id), method: :delete, remote: true, class: "delete_#{oneline.id }" %> </p>
+		<h1>Here is your Daily Journal&nbsp;<i class="fa fa-calendar-check-o" aria-hidden="true"></i></h1>
+		<% current_user.todays_my_oneline.reverse.each do |oneline| %>
+			<div class="daily_oneline_<%= oneline.id %>">
+				<p class='time-text'>Created at <%= oneline.created_at.strftime('%B %d, %Y') %></p>  
+				<span class="contents_<%=oneline.id %>"><%= oneline.contents %></span>
+				<%= link_to "Edit", oneline_path(oneline.id), remote: true, class: "button-text edit#{oneline.id}" %> | 
+				<%= link_to 'Delete', oneline_path(oneline.id), method: :delete, remote: true, class: "button-text delete_#{oneline.id }" %>
+				<br>
+			</div>
 		<% end %>
-		<br>
 	</div>
 </div>
 
