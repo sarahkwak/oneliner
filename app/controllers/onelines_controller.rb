@@ -28,7 +28,6 @@ class OnelinesController < ApplicationController
 	def update
 		this_oneline.update!(contents: params[:oneline][:contents])
 		respond_to do |format|
-			# format.html { redirect_to "/"}
 			format.js{
         render locals: { oneline: this_oneline }
       }
@@ -46,11 +45,9 @@ class OnelinesController < ApplicationController
 
 	helper_method def my_onelines
 	@onelines ||= Oneline.select { |o| o.user == current_user }.reverse
-	# why I can't call @onelines? This gives nil
 	end 
 
 	helper_method def this_oneline
-	# @oneline ||= Oneline.find(params[:id])|| Oneline.find(params[:oneline][:id])
 	@oneline ||= begin 
 									if params[:id]
 										Oneline.find(params[:id])

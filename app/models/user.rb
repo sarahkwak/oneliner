@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 		onelines.todays_oneline
 	end
 
+	def oneline_journal
+		onelines.select { |o| o.admirer_id.nil? && o.secret_admirer_id.nil? }.reverse
+	end
+
 	def self.has_multiple_admirers
 		User.select { |u| u.admirer.count > 1 }
 	end

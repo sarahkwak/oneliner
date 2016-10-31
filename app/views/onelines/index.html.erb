@@ -68,7 +68,7 @@
 <div class="daily_oneline">
 	<div class="container">
 		<h1>Here is your Daily Journal&nbsp;<i class="fa fa-calendar-check-o" aria-hidden="true"></i></h1>
-		<% current_user.todays_my_oneline.reverse.each do |oneline| %>
+		<% current_user.oneline_journal.each do |oneline| %>
 			<div class="daily_oneline_<%= oneline.id %>">
 				<p class='time-text'>Created at <%= oneline.created_at.strftime('%B %d, %Y') %></p>  
 				<span class="contents_<%=oneline.id %>"><%= oneline.contents %></span>
